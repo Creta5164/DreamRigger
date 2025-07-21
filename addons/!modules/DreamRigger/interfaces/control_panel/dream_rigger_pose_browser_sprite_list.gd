@@ -115,7 +115,6 @@ func bind_part(part: Node) -> void:
         return
     
     _binding_part = part
-    update_content()
     
     if !is_binding_model_valid():
         return
@@ -128,6 +127,8 @@ func bind_part(part: Node) -> void:
     
     if !_binding_part.sprite_changed.is_connected(_on_binding_part_sprite_changed):
         _binding_part.sprite_changed.connect(_on_binding_part_sprite_changed)
+    
+    update_content()
     
     pass
 

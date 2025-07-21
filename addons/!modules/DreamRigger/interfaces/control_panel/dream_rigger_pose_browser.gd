@@ -215,6 +215,7 @@ func unbind_part() -> void:
         _binding_part.sprite_changed.disconnect(_on_part_sprite_changed)
     
     _pose_list.unbind_part()
+    _pose_list.update_content()
     
     _binding_part = null
     

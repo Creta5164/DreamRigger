@@ -156,7 +156,7 @@ func unbind_part() -> void:
     
     _position_offset_editor_property.read_only = true
     _z_layer_editor_property.read_only         = true
-    _rotation_z_editor_property.read_only        = true
+    _rotation_z_editor_property.read_only      = true
     
     _flip_h_checkbox.disabled = true
     _flip_v_checkbox.disabled = true

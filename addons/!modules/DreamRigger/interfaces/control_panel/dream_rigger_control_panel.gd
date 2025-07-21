@@ -132,6 +132,8 @@ func _on_hierarchy_tree_part_selected(part: Node) -> void:
     _pose_previewer.refresh()
     _pose_browser.refresh()
     
+    _sprite_inspector.set_part_context(part)
+    
     pass
 
 func _on_pose_browser_pose_resource_changed(part: Node, pose: DreamRiggerPose) -> void:

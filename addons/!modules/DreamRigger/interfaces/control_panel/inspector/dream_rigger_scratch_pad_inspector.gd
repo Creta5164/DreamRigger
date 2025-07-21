@@ -445,6 +445,8 @@ func _update_sprite_quick_handles() -> void:
     
     _sprite_ppu_quick_handle.label_text = "PPU\n%06.3f" % _binding_sprite.pixels_per_unit
     
+    _sprite_joint_list.update_content()
+    
     pass
 
 func _on_drag_part_position_offset(phase: DreamRiggerQuickHandle.Phase, mouse_delta: Vector2) -> void:

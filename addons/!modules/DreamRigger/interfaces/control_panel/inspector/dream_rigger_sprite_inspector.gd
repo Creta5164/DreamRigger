@@ -189,6 +189,10 @@ func unbind_sprites() -> void:
 func _on_sprite_modified(sprite: DreamRiggerSprite) -> void:
     
     _update_name()
+    _offset_editor_property.update_property()
+    _ppu_editor_property.update_property()
+    _joint_position_editor_property.update_property()
+    _joint_list.update_content()
     
     pass
 
