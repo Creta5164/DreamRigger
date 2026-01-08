@@ -79,8 +79,8 @@ The workflow is broadly divided into 4 steps:
 > There are currently no screenshots available showing the editor interface for reference.
 
 - After installing DreamRigger, enable it in the addons.
-- Add a `DreamRiggerPart2D`/`DreamRiggerPart3D` node corresponding to the desired coordinate system in the current scene.
-  This will serve as the root bone.
+- Add a `DreamRiggerPart2D`/`DreamRiggerPart3D` node corresponding to the desired coordinate system in the current scene.  
+  This will serve as the root bone.  
   Once the node is created, check `Is Root Part` in the Inspector.
 
 ## 2. Set Up and Prepare Graphic Resources
@@ -97,9 +97,10 @@ This is where we will configure sprites and adjust parts, joints, etc.
 
 - Select the root part node again, and the root part will appear in the `Hierarchy` section of the Control Panel.
 - Now, in the `PoseBrowser` on the right side of the Control Panel, create a new `DreamRiggerPose` resource.
-  In the empty space below it, select only the imported graphic resources corresponding to the body (i.e., the parts that will become the root bone) and drag them all at once.
+  In the empty space below it, select only the imported graphic resources corresponding to the body
+  (i.e., the parts that will become the root bone) and drag them all at once.  
   This will convert the dragged graphic resources into `DreamRiggerSprite` resources.
-- Select `Sprites` in the Inspector below the `PoseBrowser`, then select each sprite added to the pose one by one and configure the Name, Offset, and Pixels per unit.
+- Select `Sprites` in the Inspector below the `PoseBrowser`, then select each sprite added to the pose one by one and configure the Name, Offset, and Pixels per unit.  
   The Offset is the same as the `offset` in Sprite2D/Sprite3D, with the origin set at the center by default.
 - Perform this task for all sprites.
 
@@ -131,7 +132,8 @@ Now, I'll guide you on how to compose for both static configurations and dynamic
 
 ### Sprite Composition
 
-The basic approach is to select the part you want to change the pose for in the Hierarchy, select the desired sprite in the `PoseBrowser`, and fine-tune the position in the `Parts` section of the Inspector while composing.
+The basic approach is to select the part you want to change the pose for in the Hierarchy,
+select the desired sprite in the `PoseBrowser`, and fine-tune the position in the `Parts` section of the Inspector while composing.
 
 ### Animation Composition with `AnimationPlayer`
 
@@ -139,7 +141,7 @@ Similar to sprite composition.
 
 - Create an `AnimationPlayer` node.
 - Enable `Record to track` at the top of the Control Panel, then select the `AnimationPlayer` node.
-- Follow the sprite composition process while selecting each part where you want to add animation keyframes.
+- Follow the sprite composition process while selecting each part where you want to add animation keyframes.  
   At this point, you'll see that keyframes are automatically added in the Animation Track Editor.
 
 > [!Warning]
