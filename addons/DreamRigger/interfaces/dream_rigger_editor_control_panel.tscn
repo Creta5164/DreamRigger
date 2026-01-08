@@ -1,0 +1,501 @@
+[gd_scene load_steps=17 format=3 uid="uid://xd3a126ttube"]
+
+[ext_resource type="Script" uid="uid://dnswtrsfeyxdx" path="res://addons/!modules/DreamRigger/interfaces/dream_rigger_control_panel.gd" id="1_5j8ob"]
+[ext_resource type="Script" uid="uid://c66n333csta07" path="res://addons/!modules/DreamRigger/interfaces/dream_rigger_pose_previewer.gd" id="1_iexk3"]
+[ext_resource type="Script" uid="uid://dugtevnjoxo7l" path="res://addons/!modules/DreamRigger/interfaces/dream_rigger_part_tree.gd" id="1_t1ww1"]
+[ext_resource type="Script" uid="uid://dqaf7u75vgqjs" path="res://addons/!modules/DreamRigger/interfaces/dream_rigger_pose_picker.gd" id="2_xobiy"]
+[ext_resource type="Script" uid="uid://baeh4dqs7fx1r" path="res://addons/!modules/DreamRigger/interfaces/dream_rigger_pose_sprites_list.gd" id="3_d3utv"]
+[ext_resource type="Script" uid="uid://x38dvqqurl6u" path="res://addons/!modules/DreamRigger/interfaces/components/dream_rigger_gui_panel.gd" id="3_wjot4"]
+[ext_resource type="Script" uid="uid://7irq7cit8mha" path="res://addons/!modules/DreamRigger/interfaces/inspectors/dream_rigger_scratch_panel.gd" id="10_cecwe"]
+[ext_resource type="PackedScene" uid="uid://binn3w5bygpwu" path="res://addons/!modules/DreamRigger/interfaces/inspectors/part_inspector.tscn" id="10_sxjgu"]
+[ext_resource type="PackedScene" uid="uid://b13u7yhlwcld" path="res://addons/!modules/DreamRigger/interfaces/inspectors/sprite_inspector.tscn" id="11_cecwe"]
+[ext_resource type="Script" uid="uid://chu8fwbt0irk" path="res://addons/!modules/DreamRigger/interfaces/components/dream_rigger_quick_handle.gd" id="11_wjot4"]
+[ext_resource type="Script" uid="uid://dxfjf085qrn0j" path="res://addons/!modules/DreamRigger/interfaces/dream_rigger_joint_item_list.gd" id="11_yxjia"]
+[ext_resource type="PackedScene" uid="uid://drnxvjwbu2wjk" path="res://addons/!modules/DreamRigger/interfaces/inspectors/joint_inspector.tscn" id="12_yxjia"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ws6m"]
+bg_color = Color(1, 1, 1, 0.0392157)
+
+[sub_resource type="Theme" id="Theme_yrkkw"]
+SplitContainer/constants/minimum_grab_thickness = 6
+SplitContainer/constants/separation = 6
+SplitContainer/styles/split_bar_background = SubResource("StyleBoxFlat_5ws6m")
+
+[sub_resource type="Gradient" id="Gradient_x6t85"]
+colors = PackedColorArray(0.239216, 0.239216, 0.239216, 0.290196, 0.4, 0.4, 0.4, 0.823529)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_kjk7g"]
+gradient = SubResource("Gradient_x6t85")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 1)
+
+[node name="Dream Rigger Control Panel" type="Panel"]
+clip_contents = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_yrkkw")
+script = ExtResource("1_5j8ob")
+
+[node name="HSplitContainer" type="HSplitContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+split_offset = 200
+
+[node name="LeftPanelContainer" type="VSplitContainer" parent="HSplitContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+split_offset = 200
+
+[node name="PosePreviewContainer" type="VBoxContainer" parent="HSplitContainer/LeftPanelContainer"]
+unique_name_in_owner = true
+clip_contents = true
+custom_minimum_size = Vector2(100, 30)
+layout_mode = 2
+script = ExtResource("1_iexk3")
+
+[node name="Label" type="Label" parent="HSplitContainer/LeftPanelContainer/PosePreviewContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+mouse_filter = 1
+text = "Preview"
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="HSplitContainer/LeftPanelContainer/PosePreviewContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PoseViewer" type="TextureRect" parent="HSplitContainer/LeftPanelContainer/PosePreviewContainer/AspectRatioContainer"]
+unique_name_in_owner = true
+texture_filter = 4
+layout_mode = 2
+size_flags_vertical = 3
+expand_mode = 1
+
+[node name="PoseNameLabel" type="Label" parent="HSplitContainer/LeftPanelContainer/PosePreviewContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 30)
+layout_mode = 2
+size_flags_vertical = 8
+size_flags_stretch_ratio = 0.0
+autowrap_mode = 2
+
+[node name="HierarchyVBox" type="VBoxContainer" parent="HSplitContainer/LeftPanelContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("3_wjot4")
+
+[node name="Label" type="Label" parent="HSplitContainer/LeftPanelContainer/HierarchyVBox"]
+layout_mode = 2
+mouse_filter = 1
+text = "Hierarchy"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HSplitContainer/LeftPanelContainer/HierarchyVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PartHierarchy" type="Tree" parent="HSplitContainer/LeftPanelContainer/HierarchyVBox/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 2
+allow_rmb_select = true
+hide_root = true
+scroll_horizontal_enabled = false
+script = ExtResource("1_t1ww1")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HSplitContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="RecordToTrackButton" type="CheckButton" parent="HSplitContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Record control panel changes to current editing AnimationPlayer."
+text = "Record to track*"
+
+[node name="RightPanelContainer" type="VSplitContainer" parent="HSplitContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+split_offset = 200
+
+[node name="PoseBrowserContainer" type="VBoxContainer" parent="HSplitContainer/VBoxContainer/RightPanelContainer"]
+unique_name_in_owner = true
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("3_wjot4")
+
+[node name="Label" type="Label" parent="HSplitContainer/VBoxContainer/RightPanelContainer/PoseBrowserContainer"]
+layout_mode = 2
+mouse_filter = 1
+text = "PoseBrowser"
+clip_text = true
+
+[node name="PosePickerContainer" type="VBoxContainer" parent="HSplitContainer/VBoxContainer/RightPanelContainer/PoseBrowserContainer"]
+unique_name_in_owner = true
+clip_contents = true
+layout_mode = 2
+script = ExtResource("2_xobiy")
+
+[node name="PosePickerLabel" type="Label" parent="HSplitContainer/VBoxContainer/RightPanelContainer/PoseBrowserContainer/PosePickerContainer"]
+unique_name_in_owner = true
+visible = false
+clip_contents = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+mouse_filter = 1
+text = "Choose part you want to edit."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PoseSpriteList" type="ItemList" parent="HSplitContainer/VBoxContainer/RightPanelContainer/PoseBrowserContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+select_mode = 1
+allow_reselect = true
+allow_rmb_select = true
+max_columns = 13
+same_column_width = true
+fixed_column_width = 75
+icon_mode = 0
+fixed_icon_size = Vector2i(75, 75)
+script = ExtResource("3_d3utv")
+
+[node name="InspectorContainer" type="VBoxContainer" parent="HSplitContainer/VBoxContainer/RightPanelContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("3_wjot4")
+
+[node name="Label" type="Label" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer"]
+layout_mode = 2
+mouse_filter = 1
+text = "Inspector"
+
+[node name="TabContainer" type="TabContainer" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer"]
+clip_contents = true
+layout_mode = 2
+size_flags_vertical = 3
+current_tab = 0
+
+[node name="Parts" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer" instance=ExtResource("10_sxjgu")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Sprites" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer" instance=ExtResource("11_cecwe")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="Joints" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer" instance=ExtResource("12_yxjia")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="Scratch pad" type="HSplitContainer" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer"]
+visible = false
+clip_contents = true
+layout_mode = 2
+split_offset = 200
+script = ExtResource("10_cecwe")
+metadata/_tab_index = 3
+
+[node name="PartContainer" type="VBoxContainer" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad"]
+clip_contents = true
+layout_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/PartContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+text = "Part"
+
+[node name="VBoxContainer" type="Panel" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/PartContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PartPositionOffsetQuickHandle" type="TextureRect" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/PartContainer/VBoxContainer"]
+unique_name_in_owner = true
+clip_contents = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.49
+anchor_bottom = 0.494898
+size_flags_vertical = 3
+mouse_default_cursor_shape = 13
+texture = SubResource("GradientTexture2D_kjk7g")
+expand_mode = 1
+stretch_mode = 6
+script = ExtResource("11_wjot4")
+
+[node name="Label" type="Label" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/PartContainer/VBoxContainer/PartPositionOffsetQuickHandle"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -11.5
+offset_right = 24.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+vertical_alignment = 1
+clip_text = true
+
+[node name="PartRotationZQuickHandle" type="TextureRect" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/PartContainer/VBoxContainer"]
+unique_name_in_owner = true
+clip_contents = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.51
+anchor_right = 1.0
+anchor_bottom = 0.494898
+size_flags_vertical = 3
+mouse_default_cursor_shape = 13
+texture = SubResource("GradientTexture2D_kjk7g")
+expand_mode = 1
+stretch_mode = 6
+script = ExtResource("11_wjot4")
+
+[node name="Label" type="Label" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/PartContainer/VBoxContainer/PartRotationZQuickHandle"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -11.5
+offset_right = 24.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+vertical_alignment = 1
+clip_text = true
+
+[node name="HBoxContainer" type="Panel" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/PartContainer/VBoxContainer"]
+clip_contents = true
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.51020396
+anchor_right = 0.49
+anchor_bottom = 1.0
+offset_top = 1.52588e-05
+size_flags_vertical = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="PartFlipHCheckBox" type="CheckBox" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/PartContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+clip_contents = true
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 0.485915
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "H"
+metadata/_edit_use_anchors_ = true
+
+[node name="PartFlipVCheckBox" type="CheckBox" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/PartContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+clip_contents = true
+layout_mode = 0
+anchor_top = 0.514085
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "V"
+metadata/_edit_use_anchors_ = true
+
+[node name="PartZLayerQuickHandle" type="TextureRect" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/PartContainer/VBoxContainer"]
+unique_name_in_owner = true
+clip_contents = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.51
+anchor_top = 0.5051021
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_vertical = 3
+mouse_default_cursor_shape = 9
+texture = SubResource("GradientTexture2D_kjk7g")
+expand_mode = 1
+stretch_mode = 6
+script = ExtResource("11_wjot4")
+
+[node name="Label" type="Label" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/PartContainer/VBoxContainer/PartZLayerQuickHandle"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -11.5
+offset_right = 24.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+vertical_alignment = 1
+clip_text = true
+
+[node name="SpriteContainer" type="VBoxContainer" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad"]
+clip_contents = true
+layout_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/SpriteContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Sprite"
+
+[node name="Panel" type="Panel" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/SpriteContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SpriteJointQuickHandle" type="TextureRect" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/SpriteContainer/Panel"]
+unique_name_in_owner = true
+clip_contents = true
+layout_mode = 0
+anchor_right = 0.425926
+anchor_bottom = 0.494898
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.75
+mouse_default_cursor_shape = 13
+texture = SubResource("GradientTexture2D_kjk7g")
+expand_mode = 1
+stretch_mode = 6
+script = ExtResource("11_wjot4")
+
+[node name="Label" type="Label" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/SpriteContainer/Panel/SpriteJointQuickHandle"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -11.5
+offset_right = 24.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="JointsContainer" type="VBoxContainer" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/SpriteContainer/Panel"]
+layout_mode = 0
+anchor_left = 0.430556
+anchor_right = 1.0
+anchor_bottom = 0.494898
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/SpriteContainer/Panel/JointsContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Joints"
+clip_text = true
+
+[node name="ScratchPadSpriteJointList" type="ItemList" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/SpriteContainer/Panel/JointsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+select_mode = 1
+allow_reselect = true
+allow_rmb_select = true
+script = ExtResource("11_yxjia")
+
+[node name="SpriteOffsetQuickHandle" type="TextureRect" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/SpriteContainer/Panel"]
+unique_name_in_owner = true
+clip_contents = true
+layout_mode = 0
+anchor_top = 0.505102
+anchor_right = 0.568287
+anchor_bottom = 1.0
+offset_right = 3.05176e-05
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 13
+texture = SubResource("GradientTexture2D_kjk7g")
+expand_mode = 1
+stretch_mode = 6
+script = ExtResource("11_wjot4")
+
+[node name="Label" type="Label" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/SpriteContainer/Panel/SpriteOffsetQuickHandle"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -11.5
+offset_right = 50.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+vertical_alignment = 1
+clip_text = true
+
+[node name="SpritePPUQuickHandle" type="TextureRect" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/SpriteContainer/Panel"]
+unique_name_in_owner = true
+clip_contents = true
+layout_mode = 0
+anchor_left = 0.572917
+anchor_top = 0.505102
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -3.05176e-05
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.75
+mouse_default_cursor_shape = 13
+texture = SubResource("GradientTexture2D_kjk7g")
+expand_mode = 1
+stretch_mode = 6
+script = ExtResource("11_wjot4")
+
+[node name="Label" type="Label" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/SpriteContainer/Panel/SpritePPUQuickHandle"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -11.5
+offset_right = 50.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+vertical_alignment = 1
+clip_text = true

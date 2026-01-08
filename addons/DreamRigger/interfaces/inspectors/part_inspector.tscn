@@ -1,0 +1,91 @@
+[gd_scene load_steps=2 format=3 uid="uid://binn3w5bygpwu"]
+
+[ext_resource type="Script" uid="uid://qr76je1ghkm" path="res://addons/!modules/DreamRigger/interfaces/inspectors/dream_rigger_part_inspector.gd" id="1_n20kt"]
+
+[node name="PartInspector" type="Panel"]
+clip_contents = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_n20kt")
+metadata/_tab_index = 0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Offset"
+
+[node name="OffsetContainer" type="HFlowContainer" parent="ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Z Layer"
+
+[node name="ZLayerContainer" type="HFlowContainer" parent="ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer2/VBoxContainer3"]
+layout_mode = 2
+text = "Flip"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/HBoxContainer2/VBoxContainer3"]
+layout_mode = 2
+
+[node name="FlipHCheckBox" type="CheckBox" parent="ScrollContainer/VBoxContainer/HBoxContainer2/VBoxContainer3/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "H"
+
+[node name="FlipVCheckBox" type="CheckBox" parent="ScrollContainer/VBoxContainer/HBoxContainer2/VBoxContainer3/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "V"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Rotation"
+
+[node name="RotationContainer" type="HFlowContainer" parent="ScrollContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
