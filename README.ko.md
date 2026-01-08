@@ -1,5 +1,7 @@
 # Dream Rigger (드림 리거)
 
+<a href="https://www.buymeacoffee.com/CretaPark" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" width="120" height="26"></a>
+
 이 플러그인은 Godot용 시트 애니메이션 스타일에 친화적인 스프라이트 리깅
 및 컴포지션 생성 도구입니다.
 

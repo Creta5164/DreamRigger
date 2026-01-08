@@ -1,5 +1,7 @@
 # Dream Rigger
 
+<a href="https://www.buymeacoffee.com/CretaPark" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" width="120" height="26"></a>
+
 [한국어 매뉴얼 보기 (View Korean Manual)](./README.ko.md)
 
 This addon is a sprite rigging and composition creation tool that is friendly to the sheet animation style for Godot.
