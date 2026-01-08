@@ -70,8 +70,8 @@ The workflow is broadly divided into 4 steps:
 2. Set up and prepare graphic resources
 3. Configure the Part hierarchy and adjust graphic resources
 4. Composition
-  - Sprite composition
-  - Animation composition with `AnimationPlayer`
+   - Sprite composition
+   - Animation composition with `AnimationPlayer`
 
 ## 1. Prepare the Top-Level Part
 
