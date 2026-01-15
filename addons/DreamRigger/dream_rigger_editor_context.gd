@@ -458,6 +458,9 @@ func record_undo_redo_insert_animation_key(
     value:          Variant,
     track_type:     int = Animation.TYPE_VALUE) -> void:
     
+    set_recording_animation(DreamRiggerEditorInternalsHelper.get_editing_animation())
+    set_recording_animation_track(node, property_name, track_type)
+    
     undo_redo.add_do_method(self, &"set_recording_animation_player", recording_animation_player)
     undo_redo.add_undo_method(self, &"set_recording_animation_player", recording_animation_player)
     
@@ -466,9 +469,6 @@ func record_undo_redo_insert_animation_key(
     
     undo_redo.add_do_method(self, &"set_recording_animation_track", node, property_name, track_type)
     undo_redo.add_undo_method(self, &"set_recording_animation_track", node, property_name, track_type)
-    
-    set_recording_animation(DreamRiggerEditorInternalsHelper.get_editing_animation())
-    set_recording_animation_track(node, property_name, track_type)
     
     var exist_track_index := get_current_recording_track_index()
     
