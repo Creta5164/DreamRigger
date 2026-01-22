@@ -170,7 +170,7 @@ func _on_ppu_property_changed(
         return
     
     _undo_redo.create_action(
-        "Set pixels per unit of Dream Rigger sprite(s)" % field,
+        "Set pixels per unit of Dream Rigger sprite(s)",
         UndoRedo.MERGE_ENDS,
         EditorInterface.get_edited_scene_root()
     )
@@ -178,7 +178,7 @@ func _on_ppu_property_changed(
     for sprite in _sprites:
         
         var old_value: float = sprite.get_indexed(^"pixels_per_unit")
-        var new_value: float = old_value
+        var new_value: float = value
         
         _undo_redo.add_do_property(sprite, &"pixels_per_unit", new_value)
         _undo_redo.add_undo_property(sprite, &"pixels_per_unit", old_value)
