@@ -62,7 +62,7 @@ var is_root_part: bool:
 var pose: DreamRiggerPose:
     get:
         return pose
-        
+    
     set(value):
         if pose == value:
             return
@@ -92,7 +92,7 @@ var pose_uid: int:
 var sprite: DreamRiggerSprite:
     get:
         return sprite
-        
+    
     set(value):
         if sprite == value:
             return
@@ -252,7 +252,7 @@ func _set(property: StringName, value: Variant) -> bool:
             flip_state_changed.emit(_flip_h, _flip_v)
             
             return true
-            
+        
         "flip_v":
             
             if _is_position_resolving:
@@ -330,10 +330,11 @@ func _on_child_entered_tree(node: Node) -> void:
     if node is DreamRiggerPart2D:
         node.request_resolve_position.connect(resolve_child_position)
     
-    #리페런팅 시 위치를 재지정하는 것으로 보임, 1프레임 대기
+    #Reparenting seems to reassign position, wait 1 frame
     await get_tree().process_frame
     
     resolve_child_position(node)
+    
     pass
 
 func _on_child_exiting_tree(node: Node) -> void:
@@ -391,7 +392,9 @@ func _on_sprite_changed() -> void:
         return
     
     texture = sprite.texture
-    self.scale = Vector2.ONE * sprite.pixels_to_units
+    
+    if self.is_root_part:
+        self.scale = Vector2.ONE * sprite.pixels_to_units
     
     for joint in sprite.joints:
         joints_lookup[joint.name] = joint
@@ -435,7 +438,7 @@ static func find_all_family_parts(part: DreamRiggerPart2D) -> Array[DreamRiggerP
     if !is_instance_valid(root_part):
         return [ part ]
     
-    _iterate_get_child_parts(part, family_parts)
+    _iterate_get_child_parts(root_part, family_parts)
     
     return family_parts
 
@@ -506,7 +509,7 @@ func resolve_joints() -> void:
 ## Calculates and applies position updates for a specified child node using joint data and position_offset information.
 func resolve_child_position(child_node: Node = null) -> void:
     
-    if !is_instance_valid(sprite) || child_node.get_parent() != self || child_node is not Node2D:
+    if !is_instance_valid(child_node) || !is_instance_valid(sprite) || child_node.get_parent() != self || child_node is not Node2D:
         return
     
     var resolved_position := Vector3.ZERO
@@ -530,7 +533,7 @@ func resolve_child_position(child_node: Node = null) -> void:
         
         child_node._parent_flip_h = resolved_flip_h
         child_node._parent_flip_v = resolved_flip_v
-        
+    
     #If there are no joints and the node is not a DreamRiggerPart2D, it is not controlled.
     elif !has_joint:
         return
@@ -604,7 +607,7 @@ class MigrationContext extends RefCounted:
     func _init(context: DreamRiggerPart2D, finish_callback: Callable) -> void:
         
         self.context     = context
-        _finish_callback = _finish_callback
+        _finish_callback = finish_callback
         
         pass
     
