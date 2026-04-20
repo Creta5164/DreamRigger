@@ -238,10 +238,8 @@ func _create_uid() -> int:
         
         pass
     
-    assert(
-        duplicated_iteration_count > 0,
-        "[DreamRiggerPose] Maximum UID create iteration count reached."
-    )
+    if duplicated_iteration_count <= 0:
+        push_error("[DreamRiggerPose] Maximum UID create iteration count reached.")
     
     return new_id
 
@@ -282,7 +280,7 @@ class MigrationContext extends RefCounted:
     func _init(context: DreamRiggerPose, finish_callback: Callable) -> void:
         
         self.context     = context
-        _finish_callback = _finish_callback
+        _finish_callback = finish_callback
         
         pass
     

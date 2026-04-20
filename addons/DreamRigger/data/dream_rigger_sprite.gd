@@ -196,7 +196,7 @@ func _add_joint_manually(joint: DreamRiggerJoint, index: int) -> void:
     if !is_instance_valid(joint):
         return
     
-    if index < 0 || index > joints.size() + 1:
+    if index < 0 || index > joints.size():
         return
     
     joints.insert(index, joint)
@@ -233,7 +233,7 @@ func _remove_joint_by_name(name: StringName) -> DreamRiggerJoint:
         if joint.name == name:
             
             joints.remove_at(joint_index)
-    
+            
             notify_property_list_changed()
             _reassign_joints_event()
             emit_changed.call_deferred()
@@ -326,7 +326,7 @@ class MigrationContext extends RefCounted:
     func _init(context: DreamRiggerSprite, finish_callback: Callable) -> void:
         
         self.context     = context
-        _finish_callback = _finish_callback
+        _finish_callback = finish_callback
         
         pass
     

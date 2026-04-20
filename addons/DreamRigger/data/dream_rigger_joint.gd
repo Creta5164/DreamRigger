@@ -104,7 +104,7 @@ class MigrationContext extends RefCounted:
     func _init(context: DreamRiggerJoint, finish_callback: Callable) -> void:
         
         self.context     = context
-        _finish_callback = _finish_callback
+        _finish_callback = finish_callback
         
         pass
     
