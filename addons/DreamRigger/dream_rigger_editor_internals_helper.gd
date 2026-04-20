@@ -19,7 +19,7 @@ static var animation_player_editor: Node:
             return animation_player_editor
         
         animation_player_editor = EditorInterface.get_base_control().get_node(
-            ^"@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@EditorBottomPanel@7324/@VBoxContainer@7309/@AnimationPlayerEditor@10507"
+            ^"@VBoxContainer@15/DockHSplitMain/@VBoxContainer@28/DockVSplitCenter/@EditorBottomPanel@7422/Animation"
         )
         
         assert(
@@ -35,7 +35,7 @@ static func get_editing_animation() -> String:
     if !is_instance_valid(animation_player_editor):
         return ""
     
-    var editing_animation_dropdown: OptionButton = animation_player_editor.get_node(^"@HBoxContainer@9347/@OptionButton@9399")
+    var editing_animation_dropdown: OptionButton = animation_player_editor.get_node(^"@VBoxContainer@11222/@HBoxContainer@11223/@OptionButton@11261")
     return editing_animation_dropdown.get_item_text(editing_animation_dropdown.selected)
 
 ## Returns AnimationPlayerEditor's current time.
@@ -44,5 +44,5 @@ static func get_current_time() -> float:
     if !is_instance_valid(animation_player_editor):
         return 0
     
-    var current_time_spin_box: SpinBox = animation_player_editor.get_node(^"@HBoxContainer@9347/@SpinBox@9374")
+    var current_time_spin_box: SpinBox = animation_player_editor.get_node(^"@VBoxContainer@11222/@HBoxContainer@11223/@SpinBox@11232")
     return current_time_spin_box.value

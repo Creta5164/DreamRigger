@@ -59,10 +59,13 @@ static func is_part_node_valid(node: Node) -> bool:
 ## [member Tree.root] from given [param node] will be used if it's [code]null[/code] (default).
 static func find_parent_part(node: Node, find_root: bool = false, topmost_node: Node = null) -> Node:
     
+    if !is_instance_valid(node) || !node.is_inside_tree():
+        return null
+    
     if !is_instance_valid(topmost_node):
         topmost_node = node.get_tree().root
     
-    if !is_instance_valid(node) || node == topmost_node:
+    if node == topmost_node:
         return null
     
     if node is DreamRiggerPart2D || node is DreamRiggerPart3D:
@@ -181,6 +184,8 @@ func _close_control_panel() -> void:
     if _control_panel:
         remove_control_from_docks(_control_panel)
         _control_panel.queue_free()
+    
+    _control_panel = null
     
     pass
 

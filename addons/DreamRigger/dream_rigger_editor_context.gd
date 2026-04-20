@@ -85,9 +85,11 @@ var recording_track_type: int
 ## Indicates dimension type of [member root_part_node] in context.
 var current_dimension: DimensionType:
     get:
-        match root_part_node:
-            DreamRiggerPart2D: return DimensionType.TWO
-            DreamRiggerPart3D: return DimensionType.THREE
+        if root_part_node is DreamRiggerPart2D:
+            return DimensionType.TWO
+        
+        if root_part_node is DreamRiggerPart3D:
+            return DimensionType.THREE
         
         return DimensionType.NONE
 
@@ -152,6 +154,11 @@ func set_part_context(part_nodes: Array[Node], record_undo: bool = true) -> void
     
     parts_changed.emit.call_deferred(self.part_nodes)
     
+    self.pose_owners.clear()
+    
+    for part_node in self.part_nodes:
+        update_pose_owner(part_node)
+    
     var poses: Array[DreamRiggerPose]
     poses.append_array(self.part_nodes.map(func(node): return node.get(&"pose")))
     
@@ -199,12 +206,15 @@ func set_pose_context(poses: Array[DreamRiggerPose], record_undo: bool = true) -
         if !is_instance_valid(pose):
             continue
         
-        pose.changed_ext.disconnect(update_sprite_owner)
+        if pose.changed_ext.is_connected(update_sprite_owner):
+            pose.changed_ext.disconnect(update_sprite_owner)
         
         pass
     
     self.poses.assign(poses.filter(is_instance_valid))
     poses_changed.emit.call_deferred(self.poses)
+    
+    self.sprite_owners.clear()
     
     for pose in self.poses:
         
@@ -212,6 +222,7 @@ func set_pose_context(poses: Array[DreamRiggerPose], record_undo: bool = true) -
             continue
         
         pose.changed_ext.connect(update_sprite_owner)
+        update_sprite_owner(pose)
         
         pass
     
@@ -261,7 +272,8 @@ func set_sprite_context(sprites: Array[DreamRiggerSprite], record_undo: bool = t
         if !is_instance_valid(sprite):
             continue
         
-        sprite.changed_ext.disconnect(update_joint_owner)
+        if sprite.changed_ext.is_connected(update_joint_owner):
+            sprite.changed_ext.disconnect(update_joint_owner)
         
         pass
     
