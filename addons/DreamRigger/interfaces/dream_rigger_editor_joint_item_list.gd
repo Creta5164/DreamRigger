@@ -67,7 +67,6 @@ func _ready() -> void:
     
     empty_clicked.connect(_on_empty_clicked)
     item_clicked.connect(_on_item_clicked)
-    item_selected.connect(_on_item_selected)
     
     pass
 
@@ -128,15 +127,6 @@ func _on_item_clicked(index: int, at_position: Vector2, mouse_button_index: int)
             pass
     
     _last_mouse_selected_name = index_name
-    
-    pass
-
-func _on_item_selected(index: int) -> void:
-    
-    if !enabled:
-        return
-    
-    #TODO: Implement logics when item selected.
     
     pass
 
@@ -271,22 +261,22 @@ func _update_joints_by_name() -> void:
     
     _joints_by_name.clear()
     
-    for joints in _sprite_joints.values():
+    for sprite_joints in _sprite_joints.values():
         
-        for joint: DreamRiggerJoint in joints:
+        for joint: DreamRiggerJoint in sprite_joints:
+            
+            var grouped: Array
             
             if !_joints_by_name.has(joint.name):
-                
-                joints = []
-                _joints_by_name[joint.name] = joints
-            
+                grouped = []
+                _joints_by_name[joint.name] = grouped
             else:
-                joints = _joints_by_name[joint.name]
+                grouped = _joints_by_name[joint.name]
             
-            if joints.has(joint):
+            if grouped.has(joint):
                 continue
             
-            joints.append(joint)
+            grouped.append(joint)
             
             pass
         
@@ -507,7 +497,7 @@ func _show_context_menu() -> void:
         
         popup.add_item("(No child nodes were found to create joint, try adding the Node as a child of the part.)")
         popup.set_item_disabled(popup.item_count - 1, true)
-        
+    
     else:
         
         var child_nodes_popup := PopupMenu.new()
@@ -548,22 +538,26 @@ func _show_context_menu() -> void:
             ContextMenuAction.DELETE
         )
     
-    var mouse_position := get_local_mouse_position()
-    
-    for selected_index in selected_indexes:
+    else:
         
-        var item_area_rect := self.get_item_rect(selected_index)
-        item_area_rect.position += self.get_screen_position()
+        var mouse_position := get_local_mouse_position()
         
-        if item_area_rect.has_point(mouse_position):
+        for selected_index in selected_indexes:
             
-            popup.add_icon_item(
-                get_theme_icon("Remove", "EditorIcons"),
-                "Delete %s joints(s)" % [ selected_indexes.size() ],
-                ContextMenuAction.DELETE
-            )
+            var item_area_rect := self.get_item_rect(selected_index)
+            item_area_rect.position += self.get_screen_position()
             
-            break
+            if item_area_rect.has_point(mouse_position):
+                
+                popup.add_icon_item(
+                    get_theme_icon("Remove", "EditorIcons"),
+                    "Delete %s joints(s)" % [ selected_indexes.size() ],
+                    ContextMenuAction.DELETE
+                )
+                
+                break
+            
+            pass
         
         pass
     
@@ -651,7 +645,7 @@ func _on_child_joint_add_selected(child_index: int) -> void:
         var has_same_named_joint := false
         
         for joint: DreamRiggerJoint in sprite.joints:
-        
+            
             if joint.name == target_node.name:
                 
                 has_same_named_joint = true
@@ -754,7 +748,7 @@ func _on_create_joint_name_submitted(value: String) -> void:
         var has_same_named_joint := false
         
         for joint: DreamRiggerJoint in sprite.joints:
-        
+            
             if joint.name == value:
                 
                 has_same_named_joint = true

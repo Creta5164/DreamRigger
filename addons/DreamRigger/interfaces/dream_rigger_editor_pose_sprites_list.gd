@@ -408,7 +408,7 @@ func _drop_data(at_position: Vector2, data: Variant) -> void:
                 _dragging_index,
                 data[DRAG_DROP_POSES_UIDS]
             )
-            
+        
         DRAG_DROP_TYPE_FILES:
             _handle_file_drop(data[DRAG_DROP_TYPE_FILES])
         
@@ -457,6 +457,10 @@ func _handle_file_drop(files: Array[String]) -> void:
             )
             
             sprites.append(sprite)
+            
+            pass
+        
+        pass
     
     if enable_undo_redo:
         
@@ -470,10 +474,8 @@ func _handle_file_drop(files: Array[String]) -> void:
             
             var new_uid := _binding_pose._create_uid()
             
-            assert(
-                new_uid != 0,
-                "[DreamRiggerPose] Maximum UID create iteration count reached."
-            )
+            if new_uid == 0:
+                push_error("[DreamRiggerPose] Maximum UID create iteration count reached.")
             
             _undo_redo.add_do_method(_binding_pose, &"_add_sprite_with_uid", new_uid, sprite)
             _undo_redo.add_undo_method(_binding_pose, &"_remove_sprite_by_uid", new_uid)
@@ -486,12 +488,12 @@ func _handle_file_drop(files: Array[String]) -> void:
             
             var new_uid := _binding_pose._create_uid()
             
-            assert(
-                new_uid != 0,
-                "[DreamRiggerPose] Maximum UID create iteration count reached."
-            )
+            if new_uid == 0:
+                push_error("[DreamRiggerPose] Maximum UID create iteration count reached.")
             
             _binding_pose._add_sprite_with_uid(new_uid, sprite)
+        
+        pass
     
     pass
 
@@ -602,8 +604,6 @@ func _is_sprite_suitable(file_path: String) -> bool:
             return true
     
     return TEXTURE_EXTENSIONS.has(extension)
-    
-    pass
 
 func _is_dream_rigger_sprite_resource(file_path: String) -> bool:
     
@@ -769,7 +769,7 @@ func _on_context_menu_selected(id: int) -> void:
             
             var empty_array: Array[int]
             empty_array.assign([])
-
+            
             _undo_redo.add_do_method(self, &"set_selection", -1, empty_array)
             
             for part in context.part_nodes:
@@ -886,7 +886,7 @@ func _on_context_menu_selected(id: int) -> void:
                 return
             
             _undo_redo.create_action(
-                "Duplicate %s sprite(s) of pose before selection" % selected_items.size(),
+                "Duplicate %s sprite(s) of pose after selection" % selected_items.size(),
                 UndoRedo.MERGE_DISABLE,
                 EditorInterface.get_edited_scene_root()
             )

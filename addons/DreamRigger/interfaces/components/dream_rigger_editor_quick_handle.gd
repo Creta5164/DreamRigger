@@ -69,7 +69,11 @@ func _ready() -> void:
 func _exit_tree() -> void:
     
     if _is_dragging:
+        
         Input.mouse_mode = _captured_mouse_mode
+        drag_performed.emit(PHASE_CANCEL, Vector2.ZERO)
+        
+        pass
     
     _is_dragging = false
     
@@ -136,7 +140,7 @@ func _on_pressed(is_pressed: bool) -> void:
             
             _begin_drag()
             drag_performed.emit(Phase.BEGIN, Vector2.ZERO)
-        
+    
     elif !is_pressed:
         
         _end_drag()

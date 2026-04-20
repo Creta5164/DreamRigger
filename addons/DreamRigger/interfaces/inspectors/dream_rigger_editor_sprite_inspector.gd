@@ -69,7 +69,7 @@ func _ready() -> void:
     )
     _offset_editor_property.draw_label = false
     _offset_editor_property.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-
+    
     _ppu_editor_property = EditorInspector.instantiate_property_editor(
         self,
         TYPE_FLOAT,

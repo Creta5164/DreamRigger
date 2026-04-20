@@ -110,8 +110,8 @@ func _ready() -> void:
     _rotation_editor_property.draw_label = false
     _rotation_editor_property.size_flags_horizontal = Control.SIZE_EXPAND_FILL
     
-    var z_layer_spin_slider := _z_layer_editor_property.get_child(0, true) as EditorSpinSlider
-    z_layer_spin_slider.step = 0.2
+    var z_layer_spin_slider := _z_layer_editor_property.get_child(2, true) as EditorSpinSlider
+    z_layer_spin_slider.step = 1
     
     _position_offset_container.add_child(_position_offset_editor_property)
     _z_layer_container.add_child(_z_layer_editor_property)

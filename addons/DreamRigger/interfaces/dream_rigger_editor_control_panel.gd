@@ -93,8 +93,8 @@ func _on_pose_sprite_list_hovering_item_changed(sprite: DreamRiggerSprite) -> vo
     _sprite_inspector.set_sprites(inspecting_sprites)
     _joint_inspector.set_sprites(inspecting_sprites)
     
-    _sprite_inspector.enabled = !is_hovering
-    _joint_inspector.enabled = !is_hovering
+    _sprite_inspector.enabled = _sprite_inspector.enabled && !is_hovering
+    _joint_inspector.enabled  = _sprite_inspector.enabled && !is_hovering
     
     pass
 

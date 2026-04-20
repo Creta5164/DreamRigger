@@ -119,6 +119,30 @@ func _ready() -> void:
     
     pass
 
+#region Editor Viewport Helpers
+
+## Returns world units per screen pixel for the 2D editor viewport.
+func _editor_world_per_pixel_2d() -> float:
+    
+    var viewport_2d  := EditorInterface.get_editor_viewport_2d()
+    var canvas_scale := viewport_2d.global_canvas_transform.get_scale()
+    
+    return 1.0 / canvas_scale.x
+
+## Returns world units per screen pixel at the given depth for the 3D editor viewport.
+func _editor_world_per_pixel_3d(global_position: Vector3) -> float:
+    
+    var viewport_3d     := EditorInterface.get_editor_viewport_3d()
+    var camera          := viewport_3d.get_camera_3d()
+    var depth           := maxf(-camera.to_local(global_position).z, 0.001)
+    var viewport_center := viewport_3d.size / 2.0
+    
+    return camera\
+        .project_position(viewport_center, depth)\
+        .distance_to(camera.project_position(viewport_center + Vector2(1, 0), depth))
+
+#endregion
+
 #region Parts
 
 func set_part_nodes(part_nodes: Array[Node]) -> void:
@@ -199,6 +223,10 @@ func _on_part_position_offset_drag_performed(phase: DreamRiggerEditorQuickHandle
         DreamRiggerEditorQuickHandle.PHASE_BEGIN:
             
             for part_node in _part_nodes:
+                
+                if !DreamRiggerEditor.is_part_node_valid(part_node):
+                    continue
+                
                 part_node.set_meta(&"_position_offset", part_node.get_indexed(^"position_offset"))
             
             pass
@@ -207,14 +235,21 @@ func _on_part_position_offset_drag_performed(phase: DreamRiggerEditorQuickHandle
             
             for part_node in _part_nodes:
                 
+                if !DreamRiggerEditor.is_part_node_valid(part_node):
+                    continue
+                
+                if !part_node.has_meta(&"_position_offset"):
+                    continue
+                
                 var parent_node    := part_node.get_parent()
                 var resolved_delta := Vector3(mouse_delta.x, mouse_delta.y, 0)
                 
                 if part_node is Node2D:
-                    resolved_delta /= 10.0
+                    resolved_delta *= _editor_world_per_pixel_2d()
                 
                 elif part_node is Node3D:
                     resolved_delta.y *= -1
+                    resolved_delta *= _editor_world_per_pixel_3d(part_node.global_position)
                 
                 if Input.is_key_pressed(KEY_CTRL):
                     resolved_delta = resolved_delta.floor()
@@ -255,6 +290,12 @@ func _on_part_position_offset_drag_performed(phase: DreamRiggerEditorQuickHandle
             
             for part_node in _part_nodes:
                 
+                if !DreamRiggerEditor.is_part_node_valid(part_node):
+                    continue
+                
+                if !part_node.has_meta(&"_position_offset"):
+                    continue
+                
                 var old_value: Vector3 = part_node.get_meta(&"_position_offset")
                 var new_value: Vector3 = part_node.get_indexed(^"position_offset")
                 
@@ -293,6 +334,12 @@ func _on_part_position_offset_drag_performed(phase: DreamRiggerEditorQuickHandle
             
             for part_node in _part_nodes:
                 
+                if !DreamRiggerEditor.is_part_node_valid(part_node):
+                    continue
+                
+                if !part_node.has_meta(&"_position_offset"):
+                    continue
+                
                 var initial_value: Vector3 = part_node.get_meta(&"_position_offset")
                 part_node.remove_meta(&"_position_offset")
                 
@@ -319,6 +366,10 @@ func _on_part_rotation_z_drag_performed(phase: DreamRiggerEditorQuickHandle.Phas
         DreamRiggerEditorQuickHandle.PHASE_BEGIN:
             
             for part_node in _part_nodes:
+                
+                if !DreamRiggerEditor.is_part_node_valid(part_node):
+                    continue
+                
                 part_node.set_meta(&"_rotation_z", part_node.get_indexed(^"rotation_z"))
             
             pass
@@ -327,16 +378,20 @@ func _on_part_rotation_z_drag_performed(phase: DreamRiggerEditorQuickHandle.Phas
             
             for part_node in _part_nodes:
                 
+                if !DreamRiggerEditor.is_part_node_valid(part_node):
+                    continue
+                
                 var parent_node       := part_node.get_parent()
                 var resolved_delta    := Vector3(_part_rotation_z_drag_delta.x, _part_rotation_z_drag_delta.y, 0)
                 var resolved_rotation := 0.0
                 
                 #Resolve to local space
                 if part_node is Node2D:
-                    resolved_delta /= 10.0
+                    resolved_delta *= _editor_world_per_pixel_2d()
                 
                 elif part_node is Node3D:
                     resolved_delta.y *= -1
+                    resolved_delta *= _editor_world_per_pixel_3d(part_node.global_position)
                 
                 if parent_node is Node2D:
                     
@@ -429,6 +484,12 @@ func _on_part_rotation_z_drag_performed(phase: DreamRiggerEditorQuickHandle.Phas
             
             for part_node in _part_nodes:
                 
+                if !DreamRiggerEditor.is_part_node_valid(part_node):
+                    continue
+                
+                if !part_node.has_meta(&"_rotation_z"):
+                    continue
+                
                 var old_value: float = part_node.get_meta(&"_rotation_z")
                 var new_value: float = part_node.get_indexed(^"rotation_z")
                 
@@ -455,6 +516,12 @@ func _on_part_rotation_z_drag_performed(phase: DreamRiggerEditorQuickHandle.Phas
         DreamRiggerEditorQuickHandle.PHASE_CANCEL:
             
             for part_node in _part_nodes:
+                
+                if !DreamRiggerEditor.is_part_node_valid(part_node):
+                    continue
+                
+                if !part_node.has_meta(&"_rotation_z"):
+                    continue
                 
                 var initial_value: float = part_node.get_meta(&"_rotation_z")
                 part_node.remove_meta(&"_rotation_z")
@@ -504,6 +571,9 @@ func _on_part_flip_h_toggled(value: bool) -> void:
     
     for part_node in _part_nodes:
         
+        if !DreamRiggerEditor.is_part_node_valid(part_node):
+            continue
+        
         _undo_redo.add_do_property(part_node, &"flip_h", value)
         _undo_redo.add_undo_property(part_node, &"flip_h", part_node.get_indexed(^"flip_h"))
         
@@ -537,6 +607,9 @@ func _on_part_flip_v_toggled(value: bool) -> void:
     
     for part_node in _part_nodes:
         
+        if !DreamRiggerEditor.is_part_node_valid(part_node):
+            continue
+        
         _undo_redo.add_do_property(part_node, &"flip_v", value)
         _undo_redo.add_undo_property(part_node, &"flip_v", part_node.get_indexed(^"flip_v"))
         
@@ -565,6 +638,10 @@ func _on_part_z_layer_drag_performed(phase: DreamRiggerEditorQuickHandle.Phase, 
         DreamRiggerEditorQuickHandle.PHASE_BEGIN:
             
             for part_node in _part_nodes:
+                
+                if !DreamRiggerEditor.is_part_node_valid(part_node):
+                    continue
+                
                 part_node.set_meta(&"_position_offset", part_node.get_indexed(^"position_offset"))
             
             pass
@@ -572,6 +649,12 @@ func _on_part_z_layer_drag_performed(phase: DreamRiggerEditorQuickHandle.Phase, 
         DreamRiggerEditorQuickHandle.PHASE_MOVE:
             
             for part_node in _part_nodes:
+                
+                if !DreamRiggerEditor.is_part_node_valid(part_node):
+                    continue
+                
+                if !part_node.has_meta(&"_position_offset"):
+                    continue
                 
                 var initial_value: Vector3 = part_node.get_meta(&"_position_offset")
                 part_node.set_indexed(^"position_offset", initial_value + Vector3(0, 0, -floor(mouse_delta.y / 50)))
@@ -591,6 +674,12 @@ func _on_part_z_layer_drag_performed(phase: DreamRiggerEditorQuickHandle.Phase, 
             )
             
             for part_node in _part_nodes:
+                
+                if !DreamRiggerEditor.is_part_node_valid(part_node):
+                    continue
+                
+                if !part_node.has_meta(&"_position_offset"):
+                    continue
                 
                 var old_value: Vector3 = part_node.get_meta(&"_position_offset")
                 var new_value: Vector3 = part_node.get_indexed(^"position_offset")
@@ -618,6 +707,12 @@ func _on_part_z_layer_drag_performed(phase: DreamRiggerEditorQuickHandle.Phase, 
         DreamRiggerEditorQuickHandle.PHASE_CANCEL:
             
             for part_node in _part_nodes:
+                
+                if !DreamRiggerEditor.is_part_node_valid(part_node):
+                    continue
+                
+                if !part_node.has_meta(&"_position_offset"):
+                    continue
                 
                 var initial_value: Vector3 = part_node.get_meta(&"_position_offset")
                 part_node.remove_meta(&"_position_offset")
@@ -695,6 +790,9 @@ func _on_sprite_ppu_drag_performed(phase: DreamRiggerEditorQuickHandle.Phase, mo
             
             for sprite in _sprites:
                 
+                if !sprite.has_meta(&"_pixels_per_unit"):
+                    continue
+                
                 if Input.is_key_pressed(KEY_CTRL):
                     mouse_delta = mouse_delta.floor()
                 
@@ -715,6 +813,9 @@ func _on_sprite_ppu_drag_performed(phase: DreamRiggerEditorQuickHandle.Phase, mo
             
             for sprite in _sprites:
                 
+                if !sprite.has_meta(&"_pixels_per_unit"):
+                    continue
+                
                 var initial_value: float = sprite.get_meta(&"_pixels_per_unit")
                 sprite.remove_meta(&"_pixels_per_unit")
                 
@@ -730,6 +831,9 @@ func _on_sprite_ppu_drag_performed(phase: DreamRiggerEditorQuickHandle.Phase, mo
         DreamRiggerEditorQuickHandle.PHASE_CANCEL:
             
             for sprite in _sprites:
+                
+                if !sprite.has_meta(&"_pixels_per_unit"):
+                    continue
                 
                 var initial_value: float = sprite.get_meta(&"_pixels_per_unit")
                 sprite.remove_meta(&"_pixels_per_unit")
@@ -760,6 +864,9 @@ func _on_sprite_offset_drag_performed(phase: DreamRiggerEditorQuickHandle.Phase,
             
             for sprite in _sprites:
                 
+                if !sprite.has_meta(&"_offset"):
+                    continue
+                
                 var resolved_delta := Vector3(mouse_delta.x, mouse_delta.y, 0)
                 
                 var context_node := _get_relevant_part_node_of_sprite(sprite)
@@ -773,24 +880,25 @@ func _on_sprite_offset_drag_performed(phase: DreamRiggerEditorQuickHandle.Phase,
                 
                 if context_node is Node2D:
                     
-                    resolved_delta /= 10.0
+                    resolved_delta *= _editor_world_per_pixel_2d()
                     
                     if Input.is_key_pressed(KEY_CTRL):
                         resolved_delta = resolved_delta.floor()
                     
                     var local_delta: Vector2 = context_node.to_local(Vector2(resolved_delta.x, resolved_delta.y))
                     
-                    resolved_delta.x = local_delta.x
-                    resolved_delta.y = local_delta.y
+                    resolved_delta.x = resolved_delta.x
+                    resolved_delta.y = resolved_delta.y
                 
                 elif context_node is Node3D:
                     
                     resolved_delta.y *= -1
+                    resolved_delta *= _editor_world_per_pixel_3d(context_node.global_position)
                     
                     if Input.is_key_pressed(KEY_CTRL):
                         resolved_delta = resolved_delta.floor()
                     
-                    resolved_delta = context_node.to_local(resolved_delta)
+                    #resolved_delta = context_node.to_local(resolved_delta)
                     
                     pass
                 
@@ -811,6 +919,9 @@ func _on_sprite_offset_drag_performed(phase: DreamRiggerEditorQuickHandle.Phase,
             
             for sprite in _sprites:
                 
+                if !sprite.has_meta(&"_offset"):
+                    continue
+                
                 var initial_value: Vector3 = sprite.get_meta(&"_offset")
                 sprite.remove_meta(&"_offset")
                 
@@ -827,6 +938,9 @@ func _on_sprite_offset_drag_performed(phase: DreamRiggerEditorQuickHandle.Phase,
             
             for sprite in _sprites:
                 
+                if !sprite.has_meta(&"_offset"):
+                    continue
+                
                 var initial_value: Vector3 = sprite.get_meta(&"_offset")
                 sprite.remove_meta(&"_offset")
                 
@@ -842,6 +956,10 @@ func _get_relevant_part_node_of_sprite(sprite: DreamRiggerSprite) -> Node:
     
     #First: Find displaying owners
     for part_node in _part_nodes:
+        
+        if !DreamRiggerEditor.is_part_node_valid(part_node):
+            continue
+        
         if part_node.get_indexed(^"sprite") == sprite:
             return part_node
     
@@ -924,13 +1042,14 @@ func _on_joint_position_drag_performed(phase: DreamRiggerEditorQuickHandle.Phase
             
             for joint in _joints:
                 
+                if !joint.has_meta(&"_position"):
+                    continue
+                
                 var resolved_delta := Vector3(mouse_delta.x, mouse_delta.y, 0)
                 
                 var context_node := _get_relevant_part_node_of_joint(joint)
                 
                 if is_instance_valid(context_node):
-                    
-                    print(context_node.name)
                     
                     if context_node.get_indexed(^"resolved_flip_h"): resolved_delta.x *= -1
                     if context_node.get_indexed(^"resolved_flip_v"): resolved_delta.y *= -1
@@ -939,7 +1058,7 @@ func _on_joint_position_drag_performed(phase: DreamRiggerEditorQuickHandle.Phase
                 
                 if context_node is Node2D:
                     
-                    resolved_delta /= 10.0
+                    resolved_delta *= _editor_world_per_pixel_2d()
                     
                     if Input.is_key_pressed(KEY_CTRL):
                         resolved_delta = resolved_delta.floor()
@@ -952,6 +1071,7 @@ func _on_joint_position_drag_performed(phase: DreamRiggerEditorQuickHandle.Phase
                 elif context_node is Node3D:
                     
                     resolved_delta.y *= -1
+                    resolved_delta *= _editor_world_per_pixel_3d(context_node.global_position)
                     
                     if Input.is_key_pressed(KEY_CTRL):
                         resolved_delta = resolved_delta.floor()
@@ -977,6 +1097,9 @@ func _on_joint_position_drag_performed(phase: DreamRiggerEditorQuickHandle.Phase
             
             for joint in _joints:
                 
+                if !joint.has_meta(&"_position"):
+                    continue
+                
                 var initial_value: Vector3 = joint.get_meta(&"_position")
                 joint.remove_meta(&"_position")
                 
@@ -992,6 +1115,9 @@ func _on_joint_position_drag_performed(phase: DreamRiggerEditorQuickHandle.Phase
         DreamRiggerEditorQuickHandle.PHASE_CANCEL:
             
             for joint in _joints:
+                
+                if !joint.has_meta(&"_position"):
+                    continue
                 
                 var initial_value: Vector3 = joint.get_meta(&"_position")
                 joint.remove_meta(&"_position")
@@ -1009,9 +1135,12 @@ func _get_relevant_part_node_of_joint(joint: DreamRiggerJoint) -> Node:
     #First: Find displaying owners
     for part_node in _part_nodes:
         
+        if !DreamRiggerEditor.is_part_node_valid(part_node):
+            continue
+        
         var sprite: DreamRiggerSprite = part_node.get_indexed(^"sprite")
         
-        if !is_instance_valid(sprite):
+        if !is_instance_valid(sprite) || !sprite.joints.has(joint):
             continue
         
         return _get_relevant_part_node_of_sprite(sprite)

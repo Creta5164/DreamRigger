@@ -101,7 +101,7 @@ func _part_position_resolved() -> void:
         
         if !is_instance_valid(item):
             continue
-        
+    
     pass
 
 #endregion
@@ -201,43 +201,10 @@ func _update_sprite_preview() -> void:
         return
     
     _set_sprite_preview(part_node.sprite.texture)
-    #FIXME: Not sure how do I optimize this
-    #var image := texture.get_image()
-    #
-    #if image.is_compressed():
-    #    image.decompress()
-    #
-    #var used_rect := image.get_used_rect()
-    #
-    #if used_rect.size == Vector2i.ZERO:
-    #    
-    #    self.set_icon(
-    #        MetadataColumn.ICON,
-    #        null
-    #    )
-    #    return
-    #
-    #thumbnail_image = Image.create(used_rect.size.x, used_rect.size.y, false, Image.FORMAT_RGBA8)
-    #thumbnail_image.blit_rect(image, used_rect, Vector2i.ZERO)
-    #
-    #thumbnail_texture = ImageTexture.create_from_image(thumbnail_image)
-    
-    #var icon_region := Rect2()
-    #
-    #if used_rect.size.x > used_rect.size.y:
-    #    
-    #    icon_region.size.x = ICON_WIDTH
-    #    icon_region.size.y = ICON_WIDTH * (float(used_rect.size.y) / float(used_rect.size.x))
-    #    
-    #else:
-    #    
-    #    icon_region.size.x = ICON_WIDTH * (float(used_rect.size.x) / float(used_rect.size.y))
-    #    icon_region.size.y = ICON_WIDTH
-    #
-    #self.set_icon_region(
-    #    MetadataColumn.ICON,
-    #    icon_region
-    #)
+    #TODO: Trim transparent margins and fit icon to 1:1 aspect ratio.
+    #    : Previous blit_rect approach caused big memory allocation on frequent updates.
+    #    : I should revisit with DrawableTexture (Godot 4.7+).
+    #    : https://github.com/godotengine/godot-proposals/issues/7379
     
     pass
 
@@ -332,7 +299,7 @@ func _on_context_menu_selected(id: int) -> void:
 
 ## Sorts child items by each binding [member part_node]'s hierarchal order.
 func sort_child_item() -> void:
-
+    
     var child_count := get_child_count()
     
     if child_count == 0:

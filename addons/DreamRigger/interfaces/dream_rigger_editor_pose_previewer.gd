@@ -43,15 +43,18 @@ func set_sprite_preview(sprite: DreamRiggerSprite) -> void:
     
     elif part_nodes_count == 1:
         
-        var part_node := part_nodes.front()
-        
-        var pose:     DreamRiggerPose = part_node.get(&"pose")
-        var pose_uid: int             = part_node.get(&"pose_uid")
-        
         var pose_index := 0
+        var part_node  := part_nodes.front()
+        
+        var pose: DreamRiggerPose = part_node.get(&"pose")
         
         if is_instance_valid(pose):
+            
+            var pose_uid: int = part_node.get(&"pose_uid")
+            
             pose_index = pose.uid_to_index(pose_uid)
+            
+            pass
         
         _name_label.text = "[%s] %s" % [ pose_index, sprite.name ]
     

@@ -151,7 +151,7 @@ func _on_position_property_changed(
 ## Set context of [DreamRiggerSprite]s for handling [DreamRiggerJoint]s.
 func set_sprites(sprites: Array[DreamRiggerSprite]) -> void:
     
-    enabled = sprites.size() == 0
+    enabled = sprites.size() != 0
     
     _joint_list.set_sprites(sprites)
     
