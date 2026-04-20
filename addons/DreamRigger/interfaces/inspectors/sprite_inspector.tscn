@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://b13u7yhlwcld"]
+[gd_scene format=3 uid="uid://b13u7yhlwcld"]
 
-[ext_resource type="Script" uid="uid://bgil6sbfb64ro" path="res://addons/!modules/DreamRigger/interfaces/inspectors/dream_rigger_sprite_inspector.gd" id="1_mflcb"]
+[ext_resource type="Script" uid="uid://bgil6sbfb64ro" path="res://addons/!modules/DreamRigger/interfaces/inspectors/dream_rigger_editor_sprite_inspector.gd" id="1_mflcb"]
 
-[node name="SpriteInspector" type="Panel"]
+[node name="SpriteInspector" type="Panel" unique_id=1706532893]
 clip_contents = true
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,7 +12,7 @@ grow_vertical = 2
 script = ExtResource("1_mflcb")
 metadata/_tab_index = 1
 
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=2073298032]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -22,40 +22,40 @@ grow_vertical = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer" unique_id=1566463158]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="NameVBoxContainer" type="VBoxContainer" parent="ScrollContainer/VBoxContainer"]
+[node name="NameVBoxContainer" type="VBoxContainer" parent="ScrollContainer/VBoxContainer" unique_id=1131682609]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/NameVBoxContainer"]
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/NameVBoxContainer" unique_id=409283209]
 layout_mode = 2
 text = "Name"
 
-[node name="NameLineEdit" type="LineEdit" parent="ScrollContainer/VBoxContainer/NameVBoxContainer"]
+[node name="NameLineEdit" type="LineEdit" parent="ScrollContainer/VBoxContainer/NameVBoxContainer" unique_id=96214764]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="OffsetVBoxContainer" type="VBoxContainer" parent="ScrollContainer/VBoxContainer"]
+[node name="OffsetVBoxContainer" type="VBoxContainer" parent="ScrollContainer/VBoxContainer" unique_id=1714753366]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/OffsetVBoxContainer"]
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/OffsetVBoxContainer" unique_id=1474611959]
 layout_mode = 2
 text = "Offset"
 
-[node name="OffsetContainer" type="HFlowContainer" parent="ScrollContainer/VBoxContainer/OffsetVBoxContainer"]
+[node name="OffsetContainer" type="HFlowContainer" parent="ScrollContainer/VBoxContainer/OffsetVBoxContainer" unique_id=1942185900]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="PPUVBoxContainer" type="VBoxContainer" parent="ScrollContainer/VBoxContainer"]
+[node name="PPUVBoxContainer" type="VBoxContainer" parent="ScrollContainer/VBoxContainer" unique_id=561389145]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/PPUVBoxContainer"]
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/PPUVBoxContainer" unique_id=920067292]
 layout_mode = 2
 text = "Pixels per unit"
 
-[node name="PPUContainer" type="HFlowContainer" parent="ScrollContainer/VBoxContainer/PPUVBoxContainer"]
+[node name="PPUContainer" type="HFlowContainer" parent="ScrollContainer/VBoxContainer/PPUVBoxContainer" unique_id=936959072]
 unique_name_in_owner = true
 layout_mode = 2

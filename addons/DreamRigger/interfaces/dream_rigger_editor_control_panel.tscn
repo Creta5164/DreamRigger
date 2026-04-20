@@ -1,16 +1,16 @@
-[gd_scene load_steps=17 format=3 uid="uid://xd3a126ttube"]
+[gd_scene format=3 uid="uid://xd3a126ttube"]
 
-[ext_resource type="Script" uid="uid://dnswtrsfeyxdx" path="res://addons/!modules/DreamRigger/interfaces/dream_rigger_control_panel.gd" id="1_5j8ob"]
-[ext_resource type="Script" uid="uid://c66n333csta07" path="res://addons/!modules/DreamRigger/interfaces/dream_rigger_pose_previewer.gd" id="1_iexk3"]
-[ext_resource type="Script" uid="uid://dugtevnjoxo7l" path="res://addons/!modules/DreamRigger/interfaces/dream_rigger_part_tree.gd" id="1_t1ww1"]
-[ext_resource type="Script" uid="uid://dqaf7u75vgqjs" path="res://addons/!modules/DreamRigger/interfaces/dream_rigger_pose_picker.gd" id="2_xobiy"]
-[ext_resource type="Script" uid="uid://baeh4dqs7fx1r" path="res://addons/!modules/DreamRigger/interfaces/dream_rigger_pose_sprites_list.gd" id="3_d3utv"]
-[ext_resource type="Script" uid="uid://x38dvqqurl6u" path="res://addons/!modules/DreamRigger/interfaces/components/dream_rigger_gui_panel.gd" id="3_wjot4"]
-[ext_resource type="Script" uid="uid://7irq7cit8mha" path="res://addons/!modules/DreamRigger/interfaces/inspectors/dream_rigger_scratch_panel.gd" id="10_cecwe"]
+[ext_resource type="Script" uid="uid://dnswtrsfeyxdx" path="res://addons/!modules/DreamRigger/interfaces/dream_rigger_editor_control_panel.gd" id="1_5j8ob"]
+[ext_resource type="Script" uid="uid://c66n333csta07" path="res://addons/!modules/DreamRigger/interfaces/dream_rigger_editor_pose_previewer.gd" id="1_iexk3"]
+[ext_resource type="Script" uid="uid://dugtevnjoxo7l" path="res://addons/!modules/DreamRigger/interfaces/dream_rigger_editor_part_tree.gd" id="1_t1ww1"]
+[ext_resource type="Script" uid="uid://dqaf7u75vgqjs" path="res://addons/!modules/DreamRigger/interfaces/dream_rigger_editor_pose_picker.gd" id="2_xobiy"]
+[ext_resource type="Script" uid="uid://baeh4dqs7fx1r" path="res://addons/!modules/DreamRigger/interfaces/dream_rigger_editor_pose_sprites_list.gd" id="3_d3utv"]
+[ext_resource type="Script" uid="uid://x38dvqqurl6u" path="res://addons/!modules/DreamRigger/interfaces/components/dream_rigger_editor_gui_panel.gd" id="3_wjot4"]
+[ext_resource type="Script" uid="uid://7irq7cit8mha" path="res://addons/!modules/DreamRigger/interfaces/inspectors/dream_rigger_editor_scratch_panel_inspector.gd" id="10_cecwe"]
 [ext_resource type="PackedScene" uid="uid://binn3w5bygpwu" path="res://addons/!modules/DreamRigger/interfaces/inspectors/part_inspector.tscn" id="10_sxjgu"]
 [ext_resource type="PackedScene" uid="uid://b13u7yhlwcld" path="res://addons/!modules/DreamRigger/interfaces/inspectors/sprite_inspector.tscn" id="11_cecwe"]
-[ext_resource type="Script" uid="uid://chu8fwbt0irk" path="res://addons/!modules/DreamRigger/interfaces/components/dream_rigger_quick_handle.gd" id="11_wjot4"]
-[ext_resource type="Script" uid="uid://dxfjf085qrn0j" path="res://addons/!modules/DreamRigger/interfaces/dream_rigger_joint_item_list.gd" id="11_yxjia"]
+[ext_resource type="Script" uid="uid://chu8fwbt0irk" path="res://addons/!modules/DreamRigger/interfaces/components/dream_rigger_editor_quick_handle.gd" id="11_wjot4"]
+[ext_resource type="Script" uid="uid://dxfjf085qrn0j" path="res://addons/!modules/DreamRigger/interfaces/dream_rigger_editor_joint_item_list.gd" id="11_yxjia"]
 [ext_resource type="PackedScene" uid="uid://drnxvjwbu2wjk" path="res://addons/!modules/DreamRigger/interfaces/inspectors/joint_inspector.tscn" id="12_yxjia"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ws6m"]
@@ -30,7 +30,7 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(1, 1)
 
-[node name="Dream Rigger Control Panel" type="Panel"]
+[node name="Dream Rigger Control Panel" type="Panel" unique_id=1954223336]
 clip_contents = true
 anchors_preset = 15
 anchor_right = 1.0
@@ -40,46 +40,48 @@ grow_vertical = 2
 theme = SubResource("Theme_yrkkw")
 script = ExtResource("1_5j8ob")
 
-[node name="HSplitContainer" type="HSplitContainer" parent="."]
+[node name="HSplitContainer" type="HSplitContainer" parent="." unique_id=7840660]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+split_offsets = PackedInt32Array(200)
 split_offset = 200
 
-[node name="LeftPanelContainer" type="VSplitContainer" parent="HSplitContainer"]
+[node name="LeftPanelContainer" type="VSplitContainer" parent="HSplitContainer" unique_id=159677520]
 unique_name_in_owner = true
 layout_mode = 2
+split_offsets = PackedInt32Array(200)
 split_offset = 200
 
-[node name="PosePreviewContainer" type="VBoxContainer" parent="HSplitContainer/LeftPanelContainer"]
+[node name="PosePreviewContainer" type="VBoxContainer" parent="HSplitContainer/LeftPanelContainer" unique_id=1403145980]
 unique_name_in_owner = true
 clip_contents = true
 custom_minimum_size = Vector2(100, 30)
 layout_mode = 2
 script = ExtResource("1_iexk3")
 
-[node name="Label" type="Label" parent="HSplitContainer/LeftPanelContainer/PosePreviewContainer"]
+[node name="Label" type="Label" parent="HSplitContainer/LeftPanelContainer/PosePreviewContainer" unique_id=1499249503]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 mouse_filter = 1
 text = "Preview"
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="HSplitContainer/LeftPanelContainer/PosePreviewContainer"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="HSplitContainer/LeftPanelContainer/PosePreviewContainer" unique_id=710278759]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="PoseViewer" type="TextureRect" parent="HSplitContainer/LeftPanelContainer/PosePreviewContainer/AspectRatioContainer"]
+[node name="PoseViewer" type="TextureRect" parent="HSplitContainer/LeftPanelContainer/PosePreviewContainer/AspectRatioContainer" unique_id=335320671]
 unique_name_in_owner = true
 texture_filter = 4
 layout_mode = 2
 size_flags_vertical = 3
 expand_mode = 1
 
-[node name="PoseNameLabel" type="Label" parent="HSplitContainer/LeftPanelContainer/PosePreviewContainer"]
+[node name="PoseNameLabel" type="Label" parent="HSplitContainer/LeftPanelContainer/PosePreviewContainer" unique_id=545348760]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 30)
 layout_mode = 2
@@ -87,23 +89,23 @@ size_flags_vertical = 8
 size_flags_stretch_ratio = 0.0
 autowrap_mode = 2
 
-[node name="HierarchyVBox" type="VBoxContainer" parent="HSplitContainer/LeftPanelContainer"]
+[node name="HierarchyVBox" type="VBoxContainer" parent="HSplitContainer/LeftPanelContainer" unique_id=2043726954]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("3_wjot4")
 
-[node name="Label" type="Label" parent="HSplitContainer/LeftPanelContainer/HierarchyVBox"]
+[node name="Label" type="Label" parent="HSplitContainer/LeftPanelContainer/HierarchyVBox" unique_id=1230585211]
 layout_mode = 2
 mouse_filter = 1
 text = "Hierarchy"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="HSplitContainer/LeftPanelContainer/HierarchyVBox"]
+[node name="ScrollContainer" type="ScrollContainer" parent="HSplitContainer/LeftPanelContainer/HierarchyVBox" unique_id=732227506]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="PartHierarchy" type="Tree" parent="HSplitContainer/LeftPanelContainer/HierarchyVBox/ScrollContainer"]
+[node name="PartHierarchy" type="Tree" parent="HSplitContainer/LeftPanelContainer/HierarchyVBox/ScrollContainer" unique_id=250219231]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -114,44 +116,45 @@ hide_root = true
 scroll_horizontal_enabled = false
 script = ExtResource("1_t1ww1")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer" unique_id=1220138705]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HSplitContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HSplitContainer/VBoxContainer" unique_id=476002840]
 layout_mode = 2
 
-[node name="RecordToTrackButton" type="CheckButton" parent="HSplitContainer/VBoxContainer/HBoxContainer"]
+[node name="RecordToTrackButton" type="CheckButton" parent="HSplitContainer/VBoxContainer/HBoxContainer" unique_id=533829234]
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Record control panel changes to current editing AnimationPlayer."
 text = "Record to track*"
 
-[node name="RightPanelContainer" type="VSplitContainer" parent="HSplitContainer/VBoxContainer"]
+[node name="RightPanelContainer" type="VSplitContainer" parent="HSplitContainer/VBoxContainer" unique_id=1580759943]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
+split_offsets = PackedInt32Array(200)
 split_offset = 200
 
-[node name="PoseBrowserContainer" type="VBoxContainer" parent="HSplitContainer/VBoxContainer/RightPanelContainer"]
+[node name="PoseBrowserContainer" type="VBoxContainer" parent="HSplitContainer/VBoxContainer/RightPanelContainer" unique_id=1006719843]
 unique_name_in_owner = true
 clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("3_wjot4")
 
-[node name="Label" type="Label" parent="HSplitContainer/VBoxContainer/RightPanelContainer/PoseBrowserContainer"]
+[node name="Label" type="Label" parent="HSplitContainer/VBoxContainer/RightPanelContainer/PoseBrowserContainer" unique_id=203520075]
 layout_mode = 2
 mouse_filter = 1
 text = "PoseBrowser"
 clip_text = true
 
-[node name="PosePickerContainer" type="VBoxContainer" parent="HSplitContainer/VBoxContainer/RightPanelContainer/PoseBrowserContainer"]
+[node name="PosePickerContainer" type="VBoxContainer" parent="HSplitContainer/VBoxContainer/RightPanelContainer/PoseBrowserContainer" unique_id=1029934758]
 unique_name_in_owner = true
 clip_contents = true
 layout_mode = 2
 script = ExtResource("2_xobiy")
 
-[node name="PosePickerLabel" type="Label" parent="HSplitContainer/VBoxContainer/RightPanelContainer/PoseBrowserContainer/PosePickerContainer"]
+[node name="PosePickerLabel" type="Label" parent="HSplitContainer/VBoxContainer/RightPanelContainer/PoseBrowserContainer/PosePickerContainer" unique_id=852710821]
 unique_name_in_owner = true
 visible = false
 clip_contents = true
@@ -162,7 +165,7 @@ text = "Choose part you want to edit."
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PoseSpriteList" type="ItemList" parent="HSplitContainer/VBoxContainer/RightPanelContainer/PoseBrowserContainer"]
+[node name="PoseSpriteList" type="ItemList" parent="HSplitContainer/VBoxContainer/RightPanelContainer/PoseBrowserContainer" unique_id=1837180463]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
@@ -177,7 +180,7 @@ icon_mode = 0
 fixed_icon_size = Vector2i(75, 75)
 script = ExtResource("3_d3utv")
 
-[node name="InspectorContainer" type="VBoxContainer" parent="HSplitContainer/VBoxContainer/RightPanelContainer"]
+[node name="InspectorContainer" type="VBoxContainer" parent="HSplitContainer/VBoxContainer/RightPanelContainer" unique_id=1296005335]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
@@ -185,56 +188,57 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("3_wjot4")
 
-[node name="Label" type="Label" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer"]
+[node name="Label" type="Label" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer" unique_id=470897649]
 layout_mode = 2
 mouse_filter = 1
 text = "Inspector"
 
-[node name="TabContainer" type="TabContainer" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer"]
+[node name="TabContainer" type="TabContainer" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer" unique_id=1344308736]
 clip_contents = true
 layout_mode = 2
 size_flags_vertical = 3
 current_tab = 0
 
-[node name="Parts" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer" instance=ExtResource("10_sxjgu")]
+[node name="Parts" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer" unique_id=842926920 instance=ExtResource("10_sxjgu")]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="Sprites" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer" instance=ExtResource("11_cecwe")]
+[node name="Sprites" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer" unique_id=1665931710 instance=ExtResource("11_cecwe")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 
-[node name="Joints" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer" instance=ExtResource("12_yxjia")]
+[node name="Joints" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer" unique_id=1831844139 instance=ExtResource("12_yxjia")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 metadata/_tab_index = 2
 
-[node name="Scratch pad" type="HSplitContainer" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer"]
+[node name="Scratch pad" type="HSplitContainer" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer" unique_id=1898135887]
 visible = false
 clip_contents = true
 layout_mode = 2
+split_offsets = PackedInt32Array(200)
 split_offset = 200
 script = ExtResource("10_cecwe")
 metadata/_tab_index = 3
 
-[node name="PartContainer" type="VBoxContainer" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad"]
+[node name="PartContainer" type="VBoxContainer" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad" unique_id=2017005111]
 clip_contents = true
 layout_mode = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="Label" type="Label" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/PartContainer"]
+[node name="Label" type="Label" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/PartContainer" unique_id=1476619401]
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 1
 text = "Part"
 
-[node name="VBoxContainer" type="Panel" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/PartContainer"]
+[node name="VBoxContainer" type="Panel" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/PartContainer" unique_id=175678392]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="PartPositionOffsetQuickHandle" type="TextureRect" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/PartContainer/VBoxContainer"]
+[node name="PartPositionOffsetQuickHandle" type="TextureRect" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/PartContainer/VBoxContainer" unique_id=1010043196]
 unique_name_in_owner = true
 clip_contents = true
 layout_mode = 1
@@ -248,7 +252,7 @@ expand_mode = 1
 stretch_mode = 6
 script = ExtResource("11_wjot4")
 
-[node name="Label" type="Label" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/PartContainer/VBoxContainer/PartPositionOffsetQuickHandle"]
+[node name="Label" type="Label" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/PartContainer/VBoxContainer/PartPositionOffsetQuickHandle" unique_id=294717301]
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 1
 anchors_preset = 8
@@ -265,7 +269,7 @@ grow_vertical = 2
 vertical_alignment = 1
 clip_text = true
 
-[node name="PartRotationZQuickHandle" type="TextureRect" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/PartContainer/VBoxContainer"]
+[node name="PartRotationZQuickHandle" type="TextureRect" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/PartContainer/VBoxContainer" unique_id=1159405268]
 unique_name_in_owner = true
 clip_contents = true
 layout_mode = 1
@@ -280,7 +284,7 @@ expand_mode = 1
 stretch_mode = 6
 script = ExtResource("11_wjot4")
 
-[node name="Label" type="Label" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/PartContainer/VBoxContainer/PartRotationZQuickHandle"]
+[node name="Label" type="Label" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/PartContainer/VBoxContainer/PartRotationZQuickHandle" unique_id=1615948868]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 1
 anchors_preset = 8
@@ -297,7 +301,7 @@ grow_vertical = 2
 vertical_alignment = 1
 clip_text = true
 
-[node name="HBoxContainer" type="Panel" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/PartContainer/VBoxContainer"]
+[node name="HBoxContainer" type="Panel" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/PartContainer/VBoxContainer" unique_id=1158493276]
 clip_contents = true
 layout_mode = 1
 anchors_preset = -1
@@ -308,7 +312,7 @@ offset_top = 1.52588e-05
 size_flags_vertical = 3
 metadata/_edit_use_anchors_ = true
 
-[node name="PartFlipHCheckBox" type="CheckBox" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/PartContainer/VBoxContainer/HBoxContainer"]
+[node name="PartFlipHCheckBox" type="CheckBox" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/PartContainer/VBoxContainer/HBoxContainer" unique_id=2030727074]
 unique_name_in_owner = true
 clip_contents = true
 layout_mode = 0
@@ -319,7 +323,7 @@ size_flags_vertical = 3
 text = "H"
 metadata/_edit_use_anchors_ = true
 
-[node name="PartFlipVCheckBox" type="CheckBox" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/PartContainer/VBoxContainer/HBoxContainer"]
+[node name="PartFlipVCheckBox" type="CheckBox" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/PartContainer/VBoxContainer/HBoxContainer" unique_id=1140773741]
 unique_name_in_owner = true
 clip_contents = true
 layout_mode = 0
@@ -331,7 +335,7 @@ size_flags_vertical = 3
 text = "V"
 metadata/_edit_use_anchors_ = true
 
-[node name="PartZLayerQuickHandle" type="TextureRect" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/PartContainer/VBoxContainer"]
+[node name="PartZLayerQuickHandle" type="TextureRect" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/PartContainer/VBoxContainer" unique_id=630847550]
 unique_name_in_owner = true
 clip_contents = true
 layout_mode = 1
@@ -347,7 +351,7 @@ expand_mode = 1
 stretch_mode = 6
 script = ExtResource("11_wjot4")
 
-[node name="Label" type="Label" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/PartContainer/VBoxContainer/PartZLayerQuickHandle"]
+[node name="Label" type="Label" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/PartContainer/VBoxContainer/PartZLayerQuickHandle" unique_id=147875637]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 1
 anchors_preset = 8
@@ -364,21 +368,21 @@ grow_vertical = 2
 vertical_alignment = 1
 clip_text = true
 
-[node name="SpriteContainer" type="VBoxContainer" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad"]
+[node name="SpriteContainer" type="VBoxContainer" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad" unique_id=1006578964]
 clip_contents = true
 layout_mode = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="Label" type="Label" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/SpriteContainer"]
+[node name="Label" type="Label" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/SpriteContainer" unique_id=874271724]
 layout_mode = 2
 size_flags_horizontal = 2
 text = "Sprite"
 
-[node name="Panel" type="Panel" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/SpriteContainer"]
+[node name="Panel" type="Panel" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/SpriteContainer" unique_id=1943868336]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="SpriteJointQuickHandle" type="TextureRect" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/SpriteContainer/Panel"]
+[node name="SpriteJointQuickHandle" type="TextureRect" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/SpriteContainer/Panel" unique_id=1545663523]
 unique_name_in_owner = true
 clip_contents = true
 layout_mode = 0
@@ -392,7 +396,7 @@ expand_mode = 1
 stretch_mode = 6
 script = ExtResource("11_wjot4")
 
-[node name="Label" type="Label" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/SpriteContainer/Panel/SpriteJointQuickHandle"]
+[node name="Label" type="Label" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/SpriteContainer/Panel/SpriteJointQuickHandle" unique_id=1609976454]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 1
 anchors_preset = 8
@@ -410,7 +414,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 clip_text = true
 
-[node name="JointsContainer" type="VBoxContainer" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/SpriteContainer/Panel"]
+[node name="JointsContainer" type="VBoxContainer" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/SpriteContainer/Panel" unique_id=1586570291]
 layout_mode = 0
 anchor_left = 0.430556
 anchor_right = 1.0
@@ -419,13 +423,13 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/SpriteContainer/Panel/JointsContainer"]
+[node name="Label" type="Label" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/SpriteContainer/Panel/JointsContainer" unique_id=805521701]
 layout_mode = 2
 size_flags_vertical = 0
 text = "Joints"
 clip_text = true
 
-[node name="ScratchPadSpriteJointList" type="ItemList" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/SpriteContainer/Panel/JointsContainer"]
+[node name="ScratchPadSpriteJointList" type="ItemList" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/SpriteContainer/Panel/JointsContainer" unique_id=742978423]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
@@ -434,7 +438,7 @@ allow_reselect = true
 allow_rmb_select = true
 script = ExtResource("11_yxjia")
 
-[node name="SpriteOffsetQuickHandle" type="TextureRect" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/SpriteContainer/Panel"]
+[node name="SpriteOffsetQuickHandle" type="TextureRect" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/SpriteContainer/Panel" unique_id=191597346]
 unique_name_in_owner = true
 clip_contents = true
 layout_mode = 0
@@ -449,7 +453,7 @@ expand_mode = 1
 stretch_mode = 6
 script = ExtResource("11_wjot4")
 
-[node name="Label" type="Label" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/SpriteContainer/Panel/SpriteOffsetQuickHandle"]
+[node name="Label" type="Label" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/SpriteContainer/Panel/SpriteOffsetQuickHandle" unique_id=76938798]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 1
 anchors_preset = 8
@@ -466,7 +470,7 @@ grow_vertical = 2
 vertical_alignment = 1
 clip_text = true
 
-[node name="SpritePPUQuickHandle" type="TextureRect" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/SpriteContainer/Panel"]
+[node name="SpritePPUQuickHandle" type="TextureRect" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/SpriteContainer/Panel" unique_id=1248715495]
 unique_name_in_owner = true
 clip_contents = true
 layout_mode = 0
@@ -483,7 +487,7 @@ expand_mode = 1
 stretch_mode = 6
 script = ExtResource("11_wjot4")
 
-[node name="Label" type="Label" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/SpriteContainer/Panel/SpritePPUQuickHandle"]
+[node name="Label" type="Label" parent="HSplitContainer/VBoxContainer/RightPanelContainer/InspectorContainer/TabContainer/Scratch pad/SpriteContainer/Panel/SpritePPUQuickHandle" unique_id=1611732440]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 1
 anchors_preset = 8
