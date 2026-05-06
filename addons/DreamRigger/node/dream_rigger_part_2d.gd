@@ -210,13 +210,13 @@ func _get(property: StringName) -> Variant:
     
     match property:
         
-        "flip_h":
+        &"flip_h":
             return _flip_h
         
-        "flip_v":
+        &"flip_v":
             return _flip_v
         
-        "joints":
+        &"joints":
             
             if is_instance_valid(sprite):
                 return sprite.joints
@@ -235,7 +235,7 @@ func _set(property: StringName, value: Variant) -> bool:
     
     match property:
         
-        "flip_h":
+        &"flip_h":
             
             if _is_position_resolving:
                 flip_h = value
@@ -253,7 +253,7 @@ func _set(property: StringName, value: Variant) -> bool:
             
             return true
         
-        "flip_v":
+        &"flip_v":
             
             if _is_position_resolving:
                 flip_v = value
@@ -271,7 +271,7 @@ func _set(property: StringName, value: Variant) -> bool:
             
             return true
         
-        "joints":
+        &"joints":
             
             if !is_instance_valid(sprite):
                 return true
@@ -291,11 +291,11 @@ func _get_property_list() -> Array[Dictionary]:
     var properties: Array[Dictionary] = []
     
     properties.append({
-        "name":        "joints",
-        "type":        TYPE_ARRAY,
-        "hint":        PROPERTY_HINT_RESOURCE_TYPE,
-        "hint_string": "24/17:DreamRiggerJoint",
-        "usage":       PROPERTY_USAGE_DEFAULT
+        &"name":        &"joints",
+        &"type":        TYPE_ARRAY,
+        &"hint":        PROPERTY_HINT_RESOURCE_TYPE,
+        &"hint_string": "24/17:DreamRiggerJoint",
+        &"usage":       PROPERTY_USAGE_DEFAULT
     })
     
     return properties

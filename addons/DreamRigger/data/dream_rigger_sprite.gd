@@ -21,9 +21,9 @@ var name: StringName:
         resource_name = value
         emit_changed()
 
-## The [Texture2D] asset used for rendering the sprite.
+## The [AtlasTexture] asset used for rendering the sprite.
 @export
-var texture: Texture2D:
+var texture: AtlasTexture:
     get:
         return texture
     
