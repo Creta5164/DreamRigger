@@ -88,7 +88,6 @@ var pose_uid: int:
         _on_pose_id_changed()
 
 ## Reference to a [DreamRiggerSprite] resource containing visual data.
-@export
 var sprite: DreamRiggerSprite:
     get:
         return sprite
@@ -291,11 +290,19 @@ func _get_property_list() -> Array[Dictionary]:
     var properties: Array[Dictionary] = []
     
     properties.append({
+        &"name":        &"sprite",
+        &"type":        TYPE_OBJECT,
+        &"hint":        PROPERTY_HINT_RESOURCE_TYPE,
+        &"hint_string": "DreamRiggerSprite",
+        &"usage":       PROPERTY_USAGE_EDITOR | PROPERTY_USAGE_READ_ONLY
+    })
+    
+    properties.append({
         &"name":        &"joints",
         &"type":        TYPE_ARRAY,
         &"hint":        PROPERTY_HINT_RESOURCE_TYPE,
         &"hint_string": "24/17:DreamRiggerJoint",
-        &"usage":       PROPERTY_USAGE_DEFAULT
+        &"usage":       PROPERTY_USAGE_EDITOR | PROPERTY_USAGE_READ_ONLY
     })
     
     return properties
@@ -322,7 +329,9 @@ func _enter_tree() -> void:
     
     self.child_entered_tree.connect(_on_child_entered_tree)
     self.child_exiting_tree.connect(_on_child_exiting_tree)
-    self.editor_state_changed.connect(resolve_positions)
+    
+    if Engine.is_editor_hint():
+        self.editor_state_changed.connect(resolve_positions)
     
     pass
 
@@ -330,7 +339,9 @@ func _exit_tree() -> void:
     
     self.child_entered_tree.disconnect(_on_child_entered_tree)
     self.child_exiting_tree.disconnect(_on_child_exiting_tree)
-    self.editor_state_changed.disconnect(resolve_positions)
+    
+    if Engine.is_editor_hint():
+        self.editor_state_changed.disconnect(resolve_positions)
     
     pass
 
@@ -350,8 +361,8 @@ func _on_child_exiting_tree(node: Node) -> void:
     
     if node is DreamRiggerPart3D:
         
-        node.request_resolve_position.disconnect(resolve_child_position)
-        node._relative_z = 0
+        if node.request_resolve_position.is_connected(resolve_child_position):
+            node.request_resolve_position.disconnect(resolve_child_position)
         
         pass
     
