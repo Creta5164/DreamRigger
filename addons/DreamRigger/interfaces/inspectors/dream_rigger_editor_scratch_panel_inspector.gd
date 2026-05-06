@@ -139,7 +139,7 @@ func _editor_world_per_pixel_3d(global_position: Vector3) -> float:
     
     return camera\
         .project_position(viewport_center, depth)\
-        .distance_to(camera.project_position(viewport_center + Vector2(1, 0), depth))
+        .distance_to(global_position + camera.project_position(viewport_center + Vector2(1, 0), depth))
 
 #endregion
 
